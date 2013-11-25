@@ -1,8 +1,7 @@
+### Fine-grained Parallel Ant Colony Optimization for the Traveling Salesman Problem
+#### Authors: Alexander Addy, Brad Santoro, Walter Wolfe
 
-% Fine-grained Parallel Ant Colony Optimization for the Traveling Salesman Problem
-% Alexander Addy, Brad Santoro, Walter Wolfe
-
-# Abstract
+### Abstract
 
 The Traveling Salesman Problem(TSP) is the question: 
 Given a list of cities and the distances between each pair of cities, what is the shortest path that visits each city exactly once and returns to the orgin city?
