@@ -32,13 +32,9 @@ int shortest_path_dist(std::vector< std::vector<int> > dist)
 			// share distance and pheromone graph for the thread
 			// while a tour is not finished
 				// choose the next city (eq 1,2)
-				// lock pheremone path
-					// local pheromone update (eq 3)
-				// unlock pheromone path
+				// atomic: local pheromone update (eq 3)
 			// end while // end of ant's travel
-			// lock the path
-				// global pheromone update (eq 4)
-			// unlock the path
+			// atomic: global pheromone update (eq 4)
 			// terminate the thread, release resources
 		// end for
 	// end for // end of iteration
