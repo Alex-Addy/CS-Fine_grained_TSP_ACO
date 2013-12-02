@@ -26,9 +26,10 @@ int main(int argc, char** argv)
 
 int shortest_path_dist(std::vector< std::vector<int> > dist)
 {
+	// start all needed threads
 	// for each iteration
 		// for each ant : IN PARALLEL
-			// start a new thread,initialize the ant
+			// initialize the ant
 			// share distance and pheromone graph for the thread
 			// while a tour is not finished
 				// choose the next city (eq 1,2)
@@ -37,5 +38,6 @@ int shortest_path_dist(std::vector< std::vector<int> > dist)
 			// atomic: global pheromone update (eq 4)
 			// terminate the thread, release resources
 		// end for
+		// barrier: all ants
 	// end for // end of iteration
 }
