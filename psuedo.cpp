@@ -1,4 +1,3 @@
-
 #include <vector>
 #include <iostream>
 
@@ -19,5 +18,28 @@ int main(int argc, char** argv)
 	
 	// well what now?
 	// something about an algorithm...
-	// i think i need to build the distance array
+	// oh yes! i think i need to build the distance array
+	// call shortest path with it
+	// then print out the answer
+	std::cout << answer << std::endl;
+}
+
+int shortest_path_dist(std::vector< std::vector<int> > dist)
+{
+	// for each iteration
+		// for each ant : IN PARALLEL
+			// start a new thread,initialize the ant
+			// share distance and pheromone graph for the thread
+			// while a tour is not finished
+				// choose the next city (eq 1,2)
+				// lock pheremone path
+					// local pheromone update (eq 3)
+				// unlock pheromone path
+			// end while // end of ant's travel
+			// lock the path
+				// global pheromone update (eq 4)
+			// unlock the path
+			// terminate the thread, release resources
+		// end for
+	// end for // end of iteration
 }
