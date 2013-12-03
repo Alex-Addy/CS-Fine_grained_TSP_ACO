@@ -20,8 +20,15 @@ double distance(std::pair<int, int>, std::pair<int, int>);
 double distance(int, int, int, int);
 double distance(double, double, double, double);
 
-// returns the index of the path to take, will call eq2 if needed
-std::pair<int,int> eq1(vector< vector<int> >& dist, vector< vector<double> >& pheromones);
+/*
+eqauation 1 and equation 2s interfaces are subject to change
+*/
+
+// returns the index of the next city to go to
+int eq1(vector< vector<int> >& dist, vector< vector<double> >& pheromones);
+
+// returns the value computed by equation 2
+double eq2(vector<vector<int>>& dist, vector<vector<double>>& pheromones);
 
 // returns the new pheromone level
 double eq3(double old_pheromone);

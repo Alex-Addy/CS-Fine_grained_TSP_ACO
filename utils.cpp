@@ -7,6 +7,7 @@
 #include <cassert>
 #include <utility> // std::pair<T,U>
 #include <cmath>   // sqrt
+#include <time>
 
 #include "utils.hpp"
 
@@ -57,7 +58,7 @@ std::vector<std::vector<int> > read_the_file(std::string s)
 	return dist;
 }
 
-std::vector<std::vector<double> > setup_pheromones(std::vector<std::vector<int>> p);
+std::vector< std::vector<double> > setup_pheromones(std::vector< std::vector<int> > p);
 
 // euclidean distance
 // this is really unnecessary, but i dont feel like bothering with templates
@@ -81,7 +82,7 @@ double distance(double x1, double y1, double x2, double y2)
 }
 
 // returns the index of the path to take
-std::pair<int,int> eq1(vector<vector<int>>& dist, vector<vector<double>>& pheromones);
+std::pair<int,int> eq1(vector<vector<int>>& dist, vector<vector<double>>& pheromones)
 
 // you should not be calling this
 double eq2(vector<vector<int>>& dist, vector<vector<double>>& pheromones);
