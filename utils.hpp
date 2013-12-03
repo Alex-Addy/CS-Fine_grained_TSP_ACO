@@ -10,6 +10,7 @@
 const int Q0 = 0.5 // must be in range [0,1], a lower q favors exploration over exploitation
 const int ALPHA = 0.5 // must be in range [0,1], pheremone decay factor
 
+// returns the dist array, it is directional
 std::vector< std::vector<int> > read_the_file(std::string s);
 std::vector< std::vector<double> > setup_pheromones(std::vector< std::vector<int> > p);
 

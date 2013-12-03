@@ -1,11 +1,13 @@
 
-#include "utils.hpp"
 #include <string>
 #include <vector>
 #include <fstream>
 #include <map>
-#include <stdlib>
+#include <stdlib>  // atoi
 #include <cassert>
+#include <utility> // std::pair<T,U>
+
+#include "utils.hpp"
 
 std::vector<std::vector<int> > read_the_file(std::string s)
 {
@@ -36,9 +38,24 @@ std::vector<std::vector<int> > read_the_file(std::string s)
 	}
 
 	assert(simple_dists.size() > 0)
+	assert(kv["EDGE_WEIGHT_TYPE:"] == "EXPLICIT") // i dont know how to deal with anything else
+	assert(kv["EDGE_WEIGHT_FORMAT:"] == "LOWER_DIAG_ROW") // same as above
 
-	// react to the given data and fill in the array to be returned
+	std::vector< std::vector<int> > dist;
+
+	for (int delta = 0, i = 0; i < simple_dists.size();)
+	{
+		for (int j = 0; j <= delta; j++)
+		{
+			dist[delta][j] = simple_dists[i+j];
+			dist[j][delta] = simple_dists[i+j];
+		}
+		dist[add][delta] = 0;
+		i += ++delta;
+	}
+	return dist;
 }
+
 std::vector<std::vector<double> > setup_pheromones(std::vector<std::vector<int>> p);
 
 // euclidean distance
