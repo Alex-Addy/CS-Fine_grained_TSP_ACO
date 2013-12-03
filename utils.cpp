@@ -6,6 +6,7 @@
 #include <stdlib>  // atoi
 #include <cassert>
 #include <utility> // std::pair<T,U>
+#include <cmath>   // sqrt
 
 #include "utils.hpp"
 
@@ -59,10 +60,25 @@ std::vector<std::vector<int> > read_the_file(std::string s)
 std::vector<std::vector<double> > setup_pheromones(std::vector<std::vector<int>> p);
 
 // euclidean distance
-double distance(std::pair<double, double>, std::pair<double, double>);
-double distance(std::pair<int, int>, std::pair<int, int>);
-double distance(int, int, int, int);
-double distance(double, double, double, double);
+// this is really unnecessary, but i dont feel like bothering with templates
+double distance(std::pair<double, double>, std::pair<double, double>)
+{
+	return distance(p1.first, p1.second, p2.first, p2.second);
+}
+double distance(std::pair<int, int> p1, std::pair<int, int> p2)
+{
+	return distance(p1.first, p1.second, p2.first, p2.second);
+}
+double distance(int x1, int y1, int x2, int y2)
+{
+	int xd = x1-x2, yd = y1-y2;
+	return sqrt(xd*xd + yd*yd);
+}
+double distance(double x1, double y1, double x2, double y2)
+{
+	double xd = x1-x2, yd = y1-y2;
+	return sqrt(xd*xd + yd*yd);
+}
 
 // returns the index of the path to take
 std::pair<int,int> eq1(vector<vector<int>>& dist, vector<vector<double>>& pheromones);
@@ -75,5 +91,3 @@ double eq3(double old_pheromone);
 
 // returns the new pheromone level to update the current global best path
 double eq4(double old_pheromone, int total_path_cost);
-
-#endif
