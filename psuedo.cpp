@@ -1,16 +1,7 @@
 #include <vector>
 #include <iostream>
-#include <fstream>
-#include <random> // correct?
 
-const int Q0 = 0.5 // must be in range [0,1], a lower q favors exploration over exploitation
-const int ALPHA = 0.5 // must be in range [0,1], pheremone decay factor
-
-// euclidean distance
-double distance(std::pair<double, double>, std::pair<double, double>);
-double distance(std::pair<int, int>, std::pair<int, int>);
-double distance(int, int, int, int);
-double distance(double, double, double, double);
+#include "utils.hpp"
 
 int shortest_path_dist(vector< vector<int> >);
 
@@ -21,13 +12,14 @@ int main(int argc, char** argv)
 		std::cerr << "I needs a file dammit!" << std::endl;
 		return 1;
 	}
-	std::ifstream f(argv[1]);
-	
 	// well what now?
 	// something about an algorithm...
 	// oh yes! i think i need to build the distance and pheromones array
 	// call shortest path with it
 	// then print out the answer
+
+	std::vector< std::vector<int> > dist = read_the_file(argv[1]); // returns a filled distance vector
+	std::vector<std::vector<double> > pheromones = setup_pheromones(dist); // returns a filled pheromone vector
 
 	// start time
 	int answer = shortest_path_dist(dist, pheromones)
@@ -50,6 +42,7 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 				// choose the next city (eq 1,2)
 				// atomic: local pheromone update (eq 3) // after reading the paper (pg 3-4), it may be possible to drop this with minimal adverse affect, we will have to time with and without
 			// end while // end of ant's travel
+			// find the current global best path?
 			// atomic: global pheromone update (eq 4)
 			// terminate the thread, release resources
 		}
