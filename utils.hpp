@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <utility>
 
 const int Q0 = 0.5 // must be in range [0,1], a lower q favors exploration over exploitation
 const int ALPHA = 0.5 // must be in range [0,1], pheremone decay factor
