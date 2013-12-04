@@ -7,7 +7,6 @@
 #include <cassert>
 #include <utility> // std::pair<T,U>
 #include <cmath>   // sqrt
-#include <algorithm>
 
 #include "utils.hpp"
 
@@ -98,10 +97,33 @@ std::pair<int,int> eq1(vector<vector<int> >& dist, vector<vector<double> >& pher
   return x;
 }
 
-// you should be calling this
-double eq2(vector<vector<int> >& dist, vector<vector<double> >& pheromones)
+// returns a vector with the probabilities of going to each city
+std::vector<double> eq2(vector<vector<int> >& dist, vector<vector<double> >& pheromones, std::vector<int>& not_visited, int cur_city)
 {
-  return 0;
+	std::vector<double> probabilities(dist.size(), 0);
+	int summation = 0;
+	for (int i = 0; i < not_visited.size(); ++i)
+	{
+		summation += pheromones[cur_city][not_visited[i]] / (pow(dist[cur_city][not_visited[i]], BETA));
+	}
+
+	for (int i = 0; i < not_visited.size(); i++)
+	{
+		probabilities[not_visited[i]] = pheromones[cur_city][not_visited[i]] / (pow(dist[cur_city][not_visited[i]], BETA));
+	}
+	return probabilities;
+}
+
+// used together with eq2 to give you the city of choice
+int eq2_helper(vector<double>& probabilities, double rand_0_to_1)
+{
+	int choice = 0;
+	for (int i = 0; rand_0_to_1 > 0; i++)
+	{
+		choice = i;
+		rand_0_to_1 -= probabilities[i];
+	}
+	return choice;
 }
 
 // returns the new pheromone level

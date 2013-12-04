@@ -15,7 +15,7 @@ const int GENERATIONS = 100;  //how many times will we run this thingy
 
 // returns the dist array, it is directional
 std::vector< std::vector<int> > read_the_file(std::string s);
-std::vector< std::vector<double> > setup_pheromones(std::vector< std::vector<int> > p);
+std::vector< std::vector<double> > setup_pheromones(std::vector< std::vector<int> >& p);
 
 // euclidean distance
 double distance(std::pair<double, double>, std::pair<double, double>);
@@ -31,7 +31,9 @@ equation 1 and equation 2s interfaces are subject to change
 std::pair<int,int> eq1(std::vector< std::vector<int> >& dist, std::vector< std::vector<double> >& pheromones);
 
 // returns the value computed by equation 2
-double eq2(std::vector<std::vector<int> >& dist, std::vector<std::vector<double> >& pheromones);
+std::vector<double> eq2(std::vector< std::vector<int> >& dist, std::vector< std::vector<double> >& pheromones, std::vector<int>& not_visited, int cur_city);
+
+int eq2_helper(std::vector<double>& probabilities, double rand_0_to_1);
 
 // returns the new pheromone level
 double eq3(double old_pheromone, double nextCost);
