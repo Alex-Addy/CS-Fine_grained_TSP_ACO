@@ -1,6 +1,8 @@
 #include <vector>
 #include <iostream>
 #include <utility> // std::pair<T,U>
+#include <pthread>
+
 
 #include "utils.hpp"
 
@@ -9,7 +11,11 @@ void* does_work(void *ptr);
 
 //////global
 int problemSize =0;
-int threadCount = 24;
+//int threadCount = 24;
+std::vector<int> results;
+std::vector< std::vector<int> > Distance;
+std::vector<double> > Pher;
+std::vector
 
 int main(int argc, char** argv)
 {
@@ -21,15 +27,19 @@ int main(int argc, char** argv)
 	// well what now?
 	// something about an algorithm...
 	// oh yes! i think i need to build the distance and pheromones array
-	// call shortest path with it
+	// call shortest path with itthr_count
 	// then print out the answer
 	
 	std::string fileName(argv[1]);
 	
 	std::vector< std::vector<int> > dist = read_the_file(fileName);// returns a filled distance vector
 	std::vector<std::vector<double> > pheromones = setup_pheromones(dist); // returns a filled pheromone vector
-	
 	problemSize = (dist.size() * dist[0].size())/2;
+	for(int i =0; i < threadCount; i++)
+	{
+		results.push_back(0);
+	}
+	
 	
 	// start time
 	int answer = shortest_path_dist(dist, pheromones);
@@ -43,9 +53,14 @@ int main(int argc, char** argv)
 // note: a thread pool is the sort of thing desired
 int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::vector<double> > pheromones)
 {
+  
+  std::vector<pthread_t> cur;
+
 	for(int i = 0; i < GENERATIONS; i++)
 	{
-		for(int i = 0;i < thr_count;i++)
+	  
+	  
+		for(int i = 0;i < ANTCOUNT; i++)
 		{
 			
 			pthread_t temp;
@@ -58,6 +73,14 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 			pthread_join(cur.back(),NULL);
 			cur.pop_back();
 		}
+		cur.clear();
+		
+		
+		//global update
+		
+		
+		for(int i =0; i < cur.size();i++)
+		  cur[i] = 0;
 	  
 	}
 	// start all needed threads
@@ -78,7 +101,53 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 
 void *does_work(void *ptr)
 {
+  int pos 0;
+  
+  //std::vector<double> res;
+  std::vector<int> history;
   
   
+  while(history < problemSize)
+  {
+    //res.clear();
+    //for(int i =0;i < problemSize; i++)
+    //{
+    //	res.push_back(0.0);
+    //}
+    
+    double choice = ((double) rand() / (RAND_MAX)) + 1;
+    
+    double max = 0;
+    int maxIndex =0;
+    
+    if(choice < Q0){
+      
+      // expliait
+      for(int i =0; i< problemSize; i++)
+      {
+	if(std::find(history.begin(), history.end(), i) != history.end()) 
+	  continue;
+	double temp = Pher[pos][i] / pow((Distance[pos][i],BETA)) ;
+	if( temp > max)
+	{
+	  max =temp;
+	  maxIndex = i;
+	}
+      }
+      
+    }
+    else //we expolore
+    {
+     
+      
+    }
+    
+    
+    Pher[pos][maxIndex] = eq3(Pher[pos][maxIndex],problemSize);
+    
+    pos = maxIndex;
+    history.push_back(max);
+    
+  }
 }
 

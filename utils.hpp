@@ -11,6 +11,7 @@ const double BETA = 0.5; // must be in range [0,1], a lower q favors exploration
 const double ALPHA = 0.1; // must be in range [0,1], pheremone decay factor
 const double TAU = 0.3;
 const int GENERATIONS = 100;  //how many times will we run this thingy
+const int ANTCOUNT = 36;
 //const double PHERBASE = 0.5; //base level of pheromones
 
 // returns the dist array, it is directional
