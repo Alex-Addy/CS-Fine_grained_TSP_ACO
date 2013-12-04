@@ -5,6 +5,7 @@
 #include "utils.hpp"
 
 int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::vector<double> > pheromones);
+void* does_work(void *ptr);
 
 //////global
 int problemSize =0;
@@ -42,21 +43,21 @@ int main(int argc, char** argv)
 // note: a thread pool is the sort of thing desired
 int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::vector<double> > pheromones)
 {
-
-  
-  
-  
 	for(int i = 0; i < GENERATIONS; i++)
 	{
-	  //thread continue
-	  
-	  //block main till done
-	  
-	  //block workers
-	  
-	  //find best reults
-	  
-	  //global update 
+		for(int i = 0;i < thr_count;i++)
+		{
+			
+			pthread_t temp;
+			pthread_create(&temp, NULL, does_work,NULL);
+			cur.push_back(temp);
+		}
+
+		while(!cur.empty())
+		{
+			pthread_join(cur.back(),NULL);
+			cur.pop_back();
+		}
 	  
 	}
 	// start all needed threads
@@ -75,5 +76,9 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 	//} // end of iteration
 }
 
-
+void *does_work(void *ptr)
+{
+  
+  
+}
 
