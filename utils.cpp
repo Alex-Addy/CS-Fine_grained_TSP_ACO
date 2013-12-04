@@ -3,7 +3,7 @@
 #include <vector>
 #include <fstream>
 #include <map>
-#include <stdlib>  // atoi
+#include <stdlib.h>  // atoi
 #include <cassert>
 #include <utility> // std::pair<T,U>
 #include <cmath>   // sqrt
@@ -60,7 +60,11 @@ std::vector<std::vector<int> > read_the_file(std::string s)
 	return dist;
 }
 
-std::vector< std::vector<double> > setup_pheromones(std::vector< std::vector<int> > p);
+std::vector< std::vector<double> > setup_pheromones(std::vector< std::vector<int> > p)
+{
+  
+  
+}
 
 // euclidean distance
 // this is really unnecessary, but i dont feel like bothering with templates
@@ -86,26 +90,27 @@ double distance(double x1, double y1, double x2, double y2)
 // returns the index of the path to take
 std::pair<int,int> eq1(vector<vector<int> >& dist, vector<vector<double> >& pheromones)
 {
-
-  return 0;
+  pair<int,int> x(0,0);
+  
+  
+  return x;
 }
 
 // you should be calling this
 double eq2(vector<vector<int> >& dist, vector<vector<double> >& pheromones)
 {
- 
   return 0;
 }
 
 // returns the new pheromone level
-double eq3(double old_pheromone)
+double eq3(double old_pheromone,double nextCost)
 {
- 
-  return 0;
+  //check the nearest cost thing, might not need and just use a constant
+  return (1-ALPHA) * old_pheromone + ALPHA / (nextCost * problemSize);
 }
 
 // returns the new pheromone level to update the current global best path
 double eq4(double old_pheromone, int total_path_cost)
 {
-  
+  return (1- ALPHA) * old_pheromone + ALPHA / total_path_cost;
 }

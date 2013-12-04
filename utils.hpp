@@ -6,8 +6,11 @@
 #include <fstream>
 #include <utility>
 
-const double Q0 = 0.5; // must be in range [0,1], a lower q favors exploration over exploitation
+const double Q0 = 0.5;  //if > then, exploration
+const double BETA = 0.5; // must be in range [0,1], a lower q favors exploration over exploitation
 const double ALPHA = 0.5; // must be in range [0,1], pheremone decay factor
+const int GENERATIONS = 100;  //how many times will we run this thingy
+//const double PHERBASE = 0.5; //base level of pheromones
 
 // returns the dist array, it is directional
 std::vector< std::vector<int> > read_the_file(std::string s);
@@ -30,7 +33,7 @@ int eq1(std::vector< std::vector<int> >& dist, std::vector< std::vector<double> 
 double eq2(std::vector<std::vector<int> >& dist, std::vector<std::vector<double> >& pheromones);
 
 // returns the new pheromone level
-double eq3(double old_pheromone);
+double eq3(double old_pheromone, double nextCost);
 
 // returns the new pheromone level to update the current global best path
 double eq4(double old_pheromone, int total_path_cost);
