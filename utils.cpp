@@ -41,9 +41,9 @@ std::vector< std::vector<int> > read_the_file(std::string s)
 		getline(f, key);
 	}
 
-	assert(simple_dists.size() > 0);
 	assert(kv["EDGE_WEIGHT_TYPE:"] == "EXPLICIT"); // i dont know how to deal with anything else
 	assert(kv["EDGE_WEIGHT_FORMAT:"] == "LOWER_DIAG_ROW"); // same as above
+	assert(simple_dists.size() > 0);
 
 	std::vector< std::vector<int> > dist;
 

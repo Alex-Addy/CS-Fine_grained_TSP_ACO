@@ -24,11 +24,30 @@ int main(int argc, char** argv)
 	std::vector< std::vector<int> > dist = read_the_file(string(argv[1])); // returns a filled distance vector
 	std::vector< std::vector<double> > pheromones = setup_pheromones(dist); // returns a filled pheromone vector
 
+	// printing things bitches!
+	for (int i = 0; i < dist.size(); i++)
+	{
+		for (int j = 0; j < dist[i].size(); j++)
+		{
+			cout << " " << dist[i][j];
+		}
+		cout << endl;
+	}
+	cout << endl << endl;
+	for (int i = 0; i < pheromones.size(); i++)
+	{
+		for (int j = 0; j < pheromones[i].size(); j++)
+		{
+			cout << " " << pheromones[i][j];
+		}
+		cout << endl;
+	}
+
 	// start time
-	int answer = shortest_path_dist(dist, pheromones);
+	//int answer = shortest_path_dist(dist, pheromones);
 	// end time
 
-	std::cout << answer << std::endl;
+	//std::cout << answer << std::endl;
 }
 
 // this algorithm has a structure similar to floyds
