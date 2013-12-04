@@ -2,7 +2,8 @@
 #include <iostream>
 #include <utility> // std::pair<T,U>
 #include <pthread.h>
-
+#include <algorithm>
+#include <cmath>
 
 #include "utils.hpp"
 
@@ -12,10 +13,10 @@ void* does_work(void *ptr);
 //////global
 int problemSize =0;
 //int threadCount = 24;
-std::vector<vector<int> > results;
+std::vector<std::vector<int> > results;
 std::vector<int> wholeCost;
 std::vector< std::vector<int> > Distance;
-std::vector<double> > Pher;
+std::vector<double> Pher;
 //std::vector
 
 int main(int argc, char** argv)
@@ -36,7 +37,7 @@ int main(int argc, char** argv)
 	std::vector< std::vector<int> > dist = read_the_file(fileName);// returns a filled distance vector
 	std::vector<std::vector<double> > pheromones = setup_pheromones(dist); // returns a filled pheromone vector
 	problemSize = (dist.size() * dist[0].size())/2;
-	for(int i =0; i < threadCount; i++)
+	for(int i =0; i < ANTCOUNT; i++)
 	{
 		std::vector<int> temp;
 		results.push_back(temp);
@@ -80,7 +81,6 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 		
 		
 		//global update
-		while (
 		
 		for(int i =0; i < cur.size();i++)
 		  cur[i] = 0;
@@ -104,14 +104,14 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 
 void *does_work(void *ptr)
 {
-  int pos 0;
+  int pos = 0;
   int antDist = 0;
   int id = *((int *)ptr);
   //std::vector<double> res;
   std::vector<int> history;
   
   
-  while(history < problemSize)
+  while(history.size() < problemSize)
   {
     //res.clear();
     //for(int i =0;i < problemSize; i++)
@@ -131,7 +131,7 @@ void *does_work(void *ptr)
       {
 	if(std::find(history.begin(), history.end(), i) != history.end()) 
 	  continue;
-	double temp = Pher[pos][i] / pow((Distance[pos][i],BETA)) ;
+	double temp = Pher[pos][i] / pow(Distance[pos][i],BETA) ;
 	if( temp > max)
 	{
 	  max =temp;
@@ -142,8 +142,7 @@ void *does_work(void *ptr)
     }
     else //we expolore
     {
-     
-      
+	  
     }
     
     Pher[pos][maxIndex] = eq3(Pher[pos][maxIndex],problemSize);
