@@ -8,7 +8,8 @@
 
 const double Q0 = 0.5;  //if > then, exploration
 const double BETA = 0.5; // must be in range [0,1], a lower q favors exploration over exploitation
-const double ALPHA = 0.5; // must be in range [0,1], pheremone decay factor
+const double ALPHA = 0.1; // must be in range [0,1], pheremone decay factor
+const double TAU = 0.3;
 const int GENERATIONS = 100;  //how many times will we run this thingy
 //const double PHERBASE = 0.5; //base level of pheromones
 
@@ -23,7 +24,7 @@ double distance(int, int, int, int);
 double distance(double, double, double, double);
 
 /*
-eqauation 1 and equation 2s interfaces are subject to change
+equation 1 and equation 2s interfaces are subject to change
 */
 
 // returns the index of the next city to go to
