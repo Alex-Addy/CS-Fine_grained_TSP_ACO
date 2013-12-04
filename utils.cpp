@@ -18,25 +18,25 @@ std::vector<std::vector<int> > read_the_file(std::string s)
 	std::map<std::string, std::string> kv;
 	std::vector<int> simple_dists;
 
-	cin >> key;
+	f >> key;
 	while (key and key != "EOF")
 	{
 		if (key == "EDGE_WEIGHT_SECTION")
 		{
-			cin >> val;
+			f >> val;
 			int v = atoi(val.c_str())
 			while (v and val != "EOF")
 			{
 				simple_dists.push_back(v);
-				cin >> val; v = atoi(val);
+				f >> val; v = atoi(val);
 			}
 		}
 		else
 		{
-			cin >> val;
+			f >> val;
 			kv[key] = val;
 		}
-		cin >> key;
+		f >> key;
 	}
 
 	assert(simple_dists.size() > 0)
