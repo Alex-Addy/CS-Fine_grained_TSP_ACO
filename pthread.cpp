@@ -1,7 +1,7 @@
 #include <vector>
 #include <iostream>
 #include <utility> // std::pair<T,U>
-#include <pthread>
+#include <pthread.h>
 
 
 #include "utils.hpp"
@@ -12,10 +12,11 @@ void* does_work(void *ptr);
 //////global
 int problemSize =0;
 //int threadCount = 24;
-std::vector<int> results;
+std::vector<vector<int> > results;
+std::vector<int> wholeCost;
 std::vector< std::vector<int> > Distance;
 std::vector<double> > Pher;
-std::vector
+//std::vector
 
 int main(int argc, char** argv)
 {
@@ -37,7 +38,9 @@ int main(int argc, char** argv)
 	problemSize = (dist.size() * dist[0].size())/2;
 	for(int i =0; i < threadCount; i++)
 	{
-		results.push_back(0);
+		std::vector<int> temp;
+		results.push_back(temp);
+		wholeCost.push_back(0);
 	}
 	
 	
@@ -62,9 +65,9 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 	  
 		for(int i = 0;i < ANTCOUNT; i++)
 		{
-			
+			int * ii = new int(i);
 			pthread_t temp;
-			pthread_create(&temp, NULL, does_work,NULL);
+			pthread_create(&temp, NULL, does_work,(void*)ii);
 			cur.push_back(temp);
 		}
 
@@ -77,7 +80,7 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 		
 		
 		//global update
-		
+		while (
 		
 		for(int i =0; i < cur.size();i++)
 		  cur[i] = 0;
@@ -102,7 +105,8 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 void *does_work(void *ptr)
 {
   int pos 0;
-  
+  int antDist = 0;
+  int id = *((int *)ptr);
   //std::vector<double> res;
   std::vector<int> history;
   
@@ -142,12 +146,15 @@ void *does_work(void *ptr)
       
     }
     
-    
     Pher[pos][maxIndex] = eq3(Pher[pos][maxIndex],problemSize);
-    
+    antDist += Distance[pos][maxIndex];
     pos = maxIndex;
-    history.push_back(max);
+    history.push_back(maxIndex);
     
   }
+  
+  results[id] = history;
+  wholeCost[id] = antDist;
+  
 }
 
