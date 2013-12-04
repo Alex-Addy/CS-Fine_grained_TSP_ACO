@@ -4,7 +4,9 @@
 
 #include "utils.hpp"
 
-int shortest_path_dist(vector< vector<int> >);
+using namespace std;
+
+int shortest_path_dist(vector< vector<int> >, vector< vector<double> > v);
 
 int main(int argc, char** argv)
 {
@@ -19,11 +21,11 @@ int main(int argc, char** argv)
 	// call shortest path with it
 	// then print out the answer
 
-	std::vector< std::vector<int> > dist = read_the_file(argv[1]); // returns a filled distance vector
-	std::vector<std::vector<double> > pheromones = setup_pheromones(dist); // returns a filled pheromone vector
+	std::vector< std::vector<int> > dist = read_the_file(string(argv[1])); // returns a filled distance vector
+	std::vector< std::vector<double> > pheromones = setup_pheromones(dist); // returns a filled pheromone vector
 
 	// start time
-	int answer = shortest_path_dist(dist, pheromones)
+	int answer = shortest_path_dist(dist, pheromones);
 	// end time
 
 	std::cout << answer << std::endl;
@@ -45,9 +47,9 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 			// end while // end of ant's travel
 			// atomic: global pheromone update (eq 4)
 			// terminate the thread, release resources
-		}
+		//}
 		// barrier: all ants
-	} // end of iteration
+	//} // end of iteration
 }
 
 /* for updating there are a few possibilities
