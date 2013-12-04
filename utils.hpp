@@ -28,7 +28,7 @@ equation 1 and equation 2s interfaces are subject to change
 */
 
 // returns the index of the next city to go to
-int eq1(std::vector< std::vector<int> >& dist, std::vector< std::vector<double> >& pheromones);
+std::pair<int,int> eq1(std::vector< std::vector<int> >& dist, std::vector< std::vector<double> >& pheromones);
 
 // returns the value computed by equation 2
 double eq2(std::vector<std::vector<int> >& dist, std::vector<std::vector<double> >& pheromones);

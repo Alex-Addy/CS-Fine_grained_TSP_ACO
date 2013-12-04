@@ -7,68 +7,70 @@
 #include <cassert>
 #include <utility> // std::pair<T,U>
 #include <cmath>   // sqrt
-#include <ctime>
+#include <algorithm>
 
 #include "utils.hpp"
 
 using namespace std;
 
-std::vector<std::vector<int> > read_the_file(std::string s)
+std::vector< std::vector<int> > read_the_file(std::string s)
 {
-	std::ifstream f(s);
-	std::string key, val;
-	std::map<std::string, std::string> kv;
-	std::vector<int> simple_dists;
+	ifstream f(s.c_str());
+	string key, val;
+	map<std::string, std::string> kv;
+	vector<int> simple_dists;
 
-	f >> key;
-	while (key and key != "EOF")
+	getline(f, key, ' ');
+	while (key != "" && key != "EOF")
 	{
 		if (key == "EDGE_WEIGHT_SECTION")
 		{
-			f >> val;
-			int v = atoi(val.c_str())
-			while (v and val != "EOF")
+			getline(f, val);
+			int v = atoi(val.c_str());
+			while (v && val != "EOF")
 			{
 				simple_dists.push_back(v);
-				f >> val; v = atoi(val);
+				getline(f, val);
+				v = atoi(val.c_str());
 			}
 		}
 		else
 		{
-			f >> val;
+			getline(f, val);
 			kv[key] = val;
 		}
-		f >> key;
+		getline(f, key);
 	}
 
-	assert(simple_dists.size() > 0)
-	assert(kv["EDGE_WEIGHT_TYPE:"] == "EXPLICIT") // i dont know how to deal with anything else
-	assert(kv["EDGE_WEIGHT_FORMAT:"] == "LOWER_DIAG_ROW") // same as above
+	assert(simple_dists.size() > 0);
+	assert(kv["EDGE_WEIGHT_TYPE:"] == "EXPLICIT"); // i dont know how to deal with anything else
+	assert(kv["EDGE_WEIGHT_FORMAT:"] == "LOWER_DIAG_ROW"); // same as above
 
 	std::vector< std::vector<int> > dist;
 
-	for (int delta = 0, i = 0; i < simple_dists.size();)
+	for (int delta = 0, i = 0; i < simple_dists.size(); )
 	{
 		for (int j = 0; j <= delta; j++)
 		{
 			dist[delta][j] = simple_dists[i+j];
 			dist[j][delta] = simple_dists[i+j];
 		}
-		dist[add][delta] = 0;
+		dist[i][delta] = 0;
 		i += ++delta;
 	}
 	return dist;
 }
 
-std::vector< std::vector<double> > setup_pheromones(std::vector< std::vector<int> > p)
+std::vector< std::vector<double> > setup_pheromones(std::vector< std::vector<int> >& dists)
 {
-  
-  
+	double tau_0 = 1.0 / (dists.size() * TAU);
+
+	std::vector< std::vector<double> >(dists.size(), std::vector<double>(dists.size(), tau_0));
 }
 
 // euclidean distance
 // this is really unnecessary, but i dont feel like bothering with templates
-double distance(std::pair<double, double>, std::pair<double, double>)
+double distance(std::pair<double, double> p1, std::pair<double, double> p2)
 {
 	return distance(p1.first, p1.second, p2.first, p2.second);
 }
@@ -103,10 +105,10 @@ double eq2(vector<vector<int> >& dist, vector<vector<double> >& pheromones)
 }
 
 // returns the new pheromone level
-double eq3(double old_pheromone,double nextCost)
+double eq3(double old_pheromone, int num_cities)
 {
   //check the nearest cost thing, might not need and just use a constant
-  return (1-ALPHA) * old_pheromone + ALPHA / (nextCost * problemSize);
+  return (1-ALPHA) * old_pheromone + ALPHA / (num_cities * TAU);
 }
 
 // returns the new pheromone level to update the current global best path
