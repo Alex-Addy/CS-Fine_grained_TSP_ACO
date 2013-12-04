@@ -17,3 +17,10 @@ is the application of techniques learned through the observance of ants to path 
 In this project we have implemented a fine-grained version of ACO for TSP.
 There are two implementations: pthreads and openmp.
 
+####Implementation:
+For the project we used Pthreads and Openmp to implement the travling salsman problem with ant colony optimization. 
+
+
+
+####Test Cases:
+for the test cases we found a repository of travling salesman problem datasets and the solutions to them at:http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/
