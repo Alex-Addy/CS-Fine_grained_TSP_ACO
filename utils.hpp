@@ -1,4 +1,3 @@
-
 #ifndef UTILS_HPP
 #define UTILS_HPP
 
@@ -7,8 +6,8 @@
 #include <fstream>
 #include <utility>
 
-const int Q0 = 0.5 // must be in range [0,1], a lower q favors exploration over exploitation
-const int ALPHA = 0.5 // must be in range [0,1], pheremone decay factor
+const double Q0 = 0.5; // must be in range [0,1], a lower q favors exploration over exploitation
+const double ALPHA = 0.5; // must be in range [0,1], pheremone decay factor
 
 // returns the dist array, it is directional
 std::vector< std::vector<int> > read_the_file(std::string s);
@@ -25,10 +24,10 @@ eqauation 1 and equation 2s interfaces are subject to change
 */
 
 // returns the index of the next city to go to
-int eq1(vector< vector<int> >& dist, vector< vector<double> >& pheromones);
+int eq1(std::vector< std::vector<int> >& dist, std::vector< std::vector<double> >& pheromones);
 
 // returns the value computed by equation 2
-double eq2(vector<vector<int>>& dist, vector<vector<double>>& pheromones);
+double eq2(std::vector<std::vector<int> >& dist, std::vector<std::vector<double> >& pheromones);
 
 // returns the new pheromone level
 double eq3(double old_pheromone);

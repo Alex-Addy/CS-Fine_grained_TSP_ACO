@@ -7,9 +7,11 @@
 #include <cassert>
 #include <utility> // std::pair<T,U>
 #include <cmath>   // sqrt
-#include <time>
+#include <ctime>
 
 #include "utils.hpp"
+
+using namespace std;
 
 std::vector<std::vector<int> > read_the_file(std::string s)
 {
@@ -82,13 +84,28 @@ double distance(double x1, double y1, double x2, double y2)
 }
 
 // returns the index of the path to take
-std::pair<int,int> eq1(vector<vector<int>>& dist, vector<vector<double>>& pheromones)
+std::pair<int,int> eq1(vector<vector<int> >& dist, vector<vector<double> >& pheromones)
+{
 
-// you should not be calling this
-double eq2(vector<vector<int>>& dist, vector<vector<double>>& pheromones);
+  return 0;
+}
+
+// you should be calling this
+double eq2(vector<vector<int> >& dist, vector<vector<double> >& pheromones)
+{
+ 
+  return 0;
+}
 
 // returns the new pheromone level
-double eq3(double old_pheromone);
+double eq3(double old_pheromone)
+{
+ 
+  return 0;
+}
 
 // returns the new pheromone level to update the current global best path
-double eq4(double old_pheromone, int total_path_cost);
+double eq4(double old_pheromone, int total_path_cost)
+{
+  
+}
