@@ -37,7 +37,7 @@ std::vector<double> eq2(std::vector< std::vector<int> >& dist, std::vector< std:
 int eq2_helper(std::vector<double>& probabilities, double rand_0_to_1);
 
 // returns the new pheromone level
-double eq3(double old_pheromone, double nextCost);
+double eq3(double old_pheromone, int nextCost);
 
 // returns the new pheromone level to update the current global best path
 double eq4(double old_pheromone, int total_path_cost);

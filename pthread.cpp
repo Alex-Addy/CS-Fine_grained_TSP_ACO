@@ -16,7 +16,7 @@ int problemSize =0;
 std::vector<std::vector<int> > results;
 std::vector<int> wholeCost;
 std::vector< std::vector<int> > Distance;
-std::vector<double> Pher;
+std::vector<std::vector<double> > Pher;
 //std::vector
 
 int main(int argc, char** argv)
