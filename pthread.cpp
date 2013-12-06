@@ -42,11 +42,12 @@ int main(int argc, char** argv)
 	for(int i =0; i < ANTCOUNT; i++)
 	{
 		std::vector<int> temp;
-		Locations.push_back(i);
 		results.push_back(temp);
 		wholeCost.push_back(0);
 	}
-
+	
+	for(int i =0; i < problemSize;i++)
+		Locations.push_back(i);
 
 	// start time
 	int answer = shortest_path_dist(dist, pheromones);
@@ -62,6 +63,7 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 {
 
 	Pher= pheromones;
+	Distance = dist;
 	std::vector<pthread_t> cur;
 
 	for(int i = 0; i < GENERATIONS; i++)
@@ -149,14 +151,17 @@ void *does_work(void *ptr)
 		double max = 0;
 		int maxIndex =0;
 
-		std::cout << "Test" << std::endl;
-		std::cout << Pher[0].size() <<std::endl;
+		std::cout << choice<< "   "  << choice2 << std::endl;
+		//std::cout << "Test" << id << std::endl;
+		//std::cout << Pher[0].size() <<std::endl;
 		//std::cout << choice << "   " << choice2 << "   testing Here" << std::endl;
-		if(choice < Q0){
+		if(choice < Q0)
+		{
 			// expliait
+		std::cout << "inDaIf" << std::endl;
 			for(int i =0; i< problemSize; i++)
 			{
-
+				if(i == pos) continue;
 				if(std::find(history.begin(), history.end(), i) != history.end()) 
 					continue;
 
@@ -171,12 +176,15 @@ void *does_work(void *ptr)
 		}
 		else //we expolore
 		{
+std::cout << "theElse" << std::endl;
+
+std::cout << Pher.size() << "	" << Distance.size() << "	" << unvisited.size() << "	" << pos << std::endl;
 			std::vector<double> cho = eq2(Distance, Pher, unvisited, pos);
 
 			maxIndex = eq2_helper(cho,choice2);
 			max = Pher[pos][maxIndex] / pow(Distance[pos][maxIndex], BETA);
 		}
-
+std::cout << "middle	" << max << "	" << maxIndex << std::endl;
 		Pher[pos][maxIndex] = eq3(Pher[pos][maxIndex],problemSize);
 		antDist += Distance[pos][maxIndex];
 		pos = maxIndex;
@@ -185,6 +193,7 @@ void *does_work(void *ptr)
 		unvisited.erase(unvisited.begin() + temp);
 	}
 
+std::cout << "end" << std::endl;
 	results[id] = history;
 	wholeCost[id] = antDist;
 
