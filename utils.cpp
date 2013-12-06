@@ -8,9 +8,28 @@
 #include <utility> // std::pair<T,U>
 #include <cmath>   // sqrt
 
+#include <iostream> //debugging
+
 #include "utils.hpp"
 
 using namespace std;
+
+void print_map(map<string, string> m)
+{
+	for (map<string, string>::const_iterator iter = m.begin(); iter != m.end(); iter++)
+	{
+		printf("Key: \'%s\', Value: \'%s\'\n", iter->first.c_str(), iter->second.c_str());
+	}
+}
+
+void print_vector(vector<int> v)
+{
+	for (int i = 0; i < v.size(); ++i)
+	{
+		printf(" %d", v[i]);
+	}
+	printf("\n");
+}
 
 std::vector< std::vector<int> > read_the_file(std::string s)
 {
@@ -19,44 +38,56 @@ std::vector< std::vector<int> > read_the_file(std::string s)
 	map<std::string, std::string> kv;
 	vector<int> simple_dists;
 
-	getline(f, key, ' ');
-	while (key != "" && key != "EOF")
+	string line;
+
+	getline(f, line);
+	while (line != "" && line != "EOF")
 	{
+		size_t found = line.find_first_of(" ");
+		key = line.substr(0, found);
 		if (key == "EDGE_WEIGHT_SECTION")
 		{
 			getline(f, val);
-			int v = atoi(val.c_str());
-			while (v && val != "EOF")
+			while (val != "EOF")
 			{
-				simple_dists.push_back(v);
+				for (int i = val.find(' '); i < std::string::npos; i = val.find(' ', i+1))
+					simple_dists.push_back(atoi(val.substr(i, val.find(' ', i+1)).c_str()));
 				getline(f, val);
-				v = atoi(val.c_str());
 			}
 		}
 		else
 		{
-			getline(f, val);
+			val = line.substr(found+1, line.find_last_not_of(' ') - found);
 			kv[key] = val;
 		}
-		getline(f, key);
+		getline(f, line);
 	}
+
+	// debugging lines
+	//print_map(kv);
+	//print_vector(simple_dists);
 
 	assert(kv["EDGE_WEIGHT_TYPE:"] == "EXPLICIT"); // i dont know how to deal with anything else
 	assert(kv["EDGE_WEIGHT_FORMAT:"] == "LOWER_DIAG_ROW"); // same as above
 	assert(simple_dists.size() > 0);
 
-	std::vector< std::vector<int> > dist;
+	int n = atoi(kv["DIMENSION:"].c_str());
+	assert(n > 0);
 
-	for (int delta = 0, i = 0; i < simple_dists.size(); )
+	std::vector< std::vector<int> > dist(n, std::vector<int>(n, 0));
+
+	for (int delta = 0, i = 0; delta < n; )
 	{
 		for (int j = 0; j <= delta; j++)
 		{
+			//printf("reading %d which is %d, ", i+j, simple_dists[i+j]);
+			//printf("i is %d, delta is %d, j is %d\n", i, delta, j);
 			dist[delta][j] = simple_dists[i+j];
 			dist[j][delta] = simple_dists[i+j];
 		}
-		dist[i][delta] = 0;
 		i += ++delta;
 	}
+	//printf("leaving read_the_file\n");
 	return dist;
 }
 
@@ -64,7 +95,7 @@ std::vector< std::vector<double> > setup_pheromones(std::vector< std::vector<int
 {
 	double tau_0 = 1.0 / (dists.size() * TAU);
 
-	std::vector< std::vector<double> >(dists.size(), std::vector<double>(dists.size(), tau_0));
+	return std::vector< std::vector<double> >(dists.size(), std::vector<double>(dists.size(), tau_0));
 }
 
 // euclidean distance
@@ -106,11 +137,12 @@ std::vector<double> eq2(vector<vector<int> >& dist, vector<vector<double> >& phe
 	{
 		summation += pheromones[cur_city][not_visited[i]] / (pow(dist[cur_city][not_visited[i]], BETA));
 	}
-
 	for (int i = 0; i < not_visited.size(); i++)
 	{
 		probabilities[not_visited[i]] = pheromones[cur_city][not_visited[i]] / (pow(dist[cur_city][not_visited[i]], BETA));
 	}
+	//for(int i=0; i < probabilities.size();i++)
+	//std::cout << probabilities[i]<< " " << std::endl;
 	return probabilities;
 }
 
