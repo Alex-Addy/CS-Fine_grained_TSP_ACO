@@ -117,6 +117,7 @@ std::vector<double> eq2(vector<vector<int> >& dist, vector<vector<double> >& phe
 // used together with eq2 to give you the city of choice
 int eq2_helper(vector<double>& probabilities, double rand_0_to_1)
 {
+	assert(0 < rand_0_to_1 and rand_0_to_1 < 1)
 	int choice = 0;
 	for (int i = 0; rand_0_to_1 > 0; i++)
 	{
