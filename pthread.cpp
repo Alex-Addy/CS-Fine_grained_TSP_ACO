@@ -4,6 +4,7 @@
 #include <pthread.h>
 #include <algorithm>
 #include <cmath>
+#include <climits>
 
 #include "utils.hpp"
 
@@ -45,7 +46,7 @@ int main(int argc, char** argv)
 		wholeCost.push_back(0);
 	}
 	
-	
+
 	// start time
 	int answer = shortest_path_dist(dist, pheromones);
 	// end time
@@ -72,7 +73,7 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 			pthread_create(&temp, NULL, does_work,(void*)ii);
 			cur.push_back(temp);
 		}
-
+	std::cout << "testing Here" << std::endl;
 		while(!cur.empty())
 		{
 			pthread_join(cur.back(),NULL);
@@ -82,6 +83,26 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 		
 		
 		//global update
+		//look at reuslts
+		int minIndex=0,minVal = INT_MAX;
+		for(int i =0; i < results.size();i++)
+		{
+		  if(wholeCost[i] < minVal)
+		  {
+		      minIndex = i;
+		      minVal = wholeCost[i];
+		  }
+		}
+		
+		//int endi = results[minIndex][results[minIndex].size()-1];
+		for(int i =0; results[minIndex].size() > 1;i++)
+		{
+		    int temp= results[minIndex].back();
+		    results[minIndex].pop_back();
+		    Pher[results[minIndex].back()][temp] = eq4(Pher[results[minIndex].back()][temp],wholeCost[minIndex]);
+		}
+		
+		
 		
 		for(int i =0; i < cur.size();i++)
 		  cur[i] = 0;
