@@ -17,7 +17,7 @@ std::vector<std::vector<int> > results;
 std::vector<int> wholeCost;
 std::vector< std::vector<int> > Distance;
 std::vector<std::vector<double> > Pher;
-//std::vector
+std::vector<int> Locations;
 
 int main(int argc, char** argv)
 {
@@ -40,6 +40,7 @@ int main(int argc, char** argv)
 	for(int i =0; i < ANTCOUNT; i++)
 	{
 		std::vector<int> temp;
+		Locations.push_back(i);
 		results.push_back(temp);
 		wholeCost.push_back(0);
 	}
@@ -109,7 +110,7 @@ void *does_work(void *ptr)
   int id = *((int *)ptr);
   //std::vector<double> res;
   std::vector<int> history;
-  
+  std::vector<int> unvisited = Locations;
   
   while(history.size() < problemSize)
   {
@@ -121,6 +122,8 @@ void *does_work(void *ptr)
     
     double choice = ((double) rand() / (RAND_MAX)) + 1;
     
+    double choice2 = ((double) rand() / (RAND_MAX)) + 1;
+    
     double max = 0;
     int maxIndex =0;
     
@@ -131,25 +134,30 @@ void *does_work(void *ptr)
       {
 	if(std::find(history.begin(), history.end(), i) != history.end()) 
 	  continue;
-	double temp = Pher[pos][i] / pow(Distance[pos][i],BETA) ;
+	
+	double temp = Pher[pos][i] / pow(Distance[pos][i], BETA) ;
+	
 	if( temp > max)
 	{
 	  max =temp;
 	  maxIndex = i;
 	}
       }
-      
     }
     else //we expolore
     {
+	  std::vector cho = eq2(Distance, Pher, unvisited, pos);
 	  
+	  maxIndex = eq2_helper(cho,choice2);
+	  max = Pher[pos][maxIndex] / pow(Distance[pos][maxIndex], BETA);
     }
     
     Pher[pos][maxIndex] = eq3(Pher[pos][maxIndex],problemSize);
     antDist += Distance[pos][maxIndex];
     pos = maxIndex;
     history.push_back(maxIndex);
-    
+    int temp = std::find(unvisited.begin(),unvisited.end(),maxIndex);
+    unvisited.erase(unvisited.begin() + temp);
   }
   
   results[id] = history;
