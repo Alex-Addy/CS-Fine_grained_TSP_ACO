@@ -146,7 +146,7 @@ void *does_work(void *ptr)
     }
     else //we expolore
     {
-	  std::vector cho = eq2(Distance, Pher, unvisited, pos);
+	  std::vector<double> cho = eq2(Distance, Pher, unvisited, pos);
 	  
 	  maxIndex = eq2_helper(cho,choice2);
 	  max = Pher[pos][maxIndex] / pow(Distance[pos][maxIndex], BETA);
@@ -156,7 +156,7 @@ void *does_work(void *ptr)
     antDist += Distance[pos][maxIndex];
     pos = maxIndex;
     history.push_back(maxIndex);
-    int temp = std::find(unvisited.begin(),unvisited.end(),maxIndex);
+    int temp = *(std::find(unvisited.begin(),unvisited.end(),maxIndex));
     unvisited.erase(unvisited.begin() + temp);
   }
   
