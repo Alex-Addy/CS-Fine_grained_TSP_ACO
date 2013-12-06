@@ -8,6 +8,8 @@
 #include <utility> // std::pair<T,U>
 #include <cmath>   // sqrt
 
+#include <iostream> //debugging
+
 #include "utils.hpp"
 
 using namespace std;
@@ -135,17 +137,19 @@ std::vector<double> eq2(vector<vector<int> >& dist, vector<vector<double> >& phe
 	{
 		summation += pheromones[cur_city][not_visited[i]] / (pow(dist[cur_city][not_visited[i]], BETA));
 	}
-
 	for (int i = 0; i < not_visited.size(); i++)
 	{
 		probabilities[not_visited[i]] = pheromones[cur_city][not_visited[i]] / (pow(dist[cur_city][not_visited[i]], BETA));
 	}
+	//for(int i=0; i < probabilities.size();i++)
+	//std::cout << probabilities[i]<< " " << std::endl;
 	return probabilities;
 }
 
 // used together with eq2 to give you the city of choice
 int eq2_helper(vector<double>& probabilities, double rand_0_to_1)
 {
+	//std::cout << probabilities.size() <<"	" << std::endl;
 	int choice = 0;
 	for (int i = 0; rand_0_to_1 > 0; i++)
 	{

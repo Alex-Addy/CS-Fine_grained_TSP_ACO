@@ -46,9 +46,16 @@ int main(int argc, char** argv)
 		wholeCost.push_back(0);
 	}
 	
-	for(int i =0; i < problemSize;i++)
+	for(int i =0; i < dist.size(); i++)
 		Locations.push_back(i);
-
+	/*
+	for(int i =0; i< pheromones.size(); i++){
+	  for(int j=0; j < pheromones[i].size();j++)
+	      std::cout << pheromones[i][j] << "  ";
+	  std::cout << std::endl;
+	}
+	*/
+	
 	// start time
 	int answer = shortest_path_dist(dist, pheromones);
 	// end time
@@ -135,9 +142,10 @@ void *does_work(void *ptr)
 	//std::vector<double> res;
 	std::vector<int> history;
 	std::vector<int> unvisited = Locations;
-
-	while(history.size() + 1 < problemSize)
+	std::cout << unvisited.size()<< std::endl;
+	while(!unvisited.empty())
 	{
+	std::cout << pos << std::endl;
 		//res.clear();
 		//for(int i =0;i < problemSize; i++)
 		//{
@@ -151,11 +159,11 @@ void *does_work(void *ptr)
 		double max = 0;
 		int maxIndex =0;
 
-		std::cout << choice<< "   "  << choice2 << std::endl;
+		//std::cout << choice<< "   "  << choice2 << std::endl;
 		//std::cout << "Test" << id << std::endl;
 		//std::cout << Pher[0].size() <<std::endl;
 		//std::cout << choice << "   " << choice2 << "   testing Here" << std::endl;
-		if(choice < Q0)
+		if(choice > Q0)
 		{
 			// expliait
 		std::cout << "inDaIf" << std::endl;
@@ -178,10 +186,14 @@ void *does_work(void *ptr)
 		{
 std::cout << "theElse" << std::endl;
 
-std::cout << Pher.size() << "	" << Distance.size() << "	" << unvisited.size() << "	" << pos << std::endl;
+//std::cout << Pher.size() << "	" << Distance.size() << "	" << unvisited.size() << "	" << pos << std::endl;
 			std::vector<double> cho = eq2(Distance, Pher, unvisited, pos);
-
+			
+			//for(int i=0; i < unvisited.size();i++)
+			//  std::cout << eq2_helper(cho,choice2) << std::endl;
+			
 			maxIndex = eq2_helper(cho,choice2);
+			 //std::cout << "test" << std::endl;
 			max = Pher[pos][maxIndex] / pow(Distance[pos][maxIndex], BETA);
 		}
 std::cout << "middle	" << max << "	" << maxIndex << std::endl;
