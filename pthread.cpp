@@ -46,7 +46,7 @@ int main(int argc, char** argv)
 		wholeCost.push_back(0);
 	}
 	
-	for(int i =0; i < dist.size(); i++)
+	for(int i =1; i < dist.size(); i++)
 		Locations.push_back(i);
 	/*
 	for(int i =0; i< pheromones.size(); i++){
@@ -142,7 +142,7 @@ void *does_work(void *ptr)
 	//std::vector<double> res;
 	std::vector<int> history;
 	std::vector<int> unvisited = Locations;
-	std::cout << unvisited.size()<< std::endl;
+	//std::cout << unvisited.size()<< std::endl;
 	while(!unvisited.empty())
 	{
 	std::cout << pos << std::endl;
@@ -201,7 +201,11 @@ std::cout << "middle	" << max << "	" << maxIndex << std::endl;
 		antDist += Distance[pos][maxIndex];
 		pos = maxIndex;
 		history.push_back(maxIndex);
-		int temp = *(std::find(unvisited.begin(),unvisited.end(),maxIndex));
+		int temp = std::find(unvisited.begin(),unvisited.end(),maxIndex) - unvisited.begin();
+		for(int i =0; i < unvisited.size();i++)
+		  std::cout << unvisited[i] << " ";
+		std::cout << std::endl;
+		std::cout << "Find: " << temp << "/" << unvisited.size() << std::endl;
 		unvisited.erase(unvisited.begin() + temp);
 	}
 

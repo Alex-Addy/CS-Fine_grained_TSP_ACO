@@ -139,22 +139,25 @@ std::vector<double> eq2(vector<vector<int> >& dist, vector<vector<double> >& phe
 	}
 	for (int i = 0; i < not_visited.size(); i++)
 	{
-		probabilities[not_visited[i]] = pheromones[cur_city][not_visited[i]] / (pow(dist[cur_city][not_visited[i]], BETA));
+		probabilities[not_visited[i]] = pheromones[cur_city][not_visited[i]] / (pow(dist[cur_city][not_visited[i]], BETA)) * 5;
 	}
-	//for(int i=0; i < probabilities.size();i++)
-	//std::cout << probabilities[i]<< " " << std::endl;
+	for(int i=0; i < probabilities.size();i++)
+	std::cout << probabilities[i]<< " " << std::endl;
 	return probabilities;
 }
 
 // used together with eq2 to give you the city of choice
 int eq2_helper(vector<double>& probabilities, double rand_0_to_1)
 {
-	assert(0 < rand_0_to_1 and rand_0_to_1 < 1)
+	std::cout << " enter helper: "<< rand_0_to_1 << std::endl;
+	assert(0 < rand_0_to_1 and rand_0_to_1 < 1);
+	
 	int choice = 0;
 	for (int i = 0; rand_0_to_1 > 0; i++)
 	{
 		choice = i;
 		rand_0_to_1 -= probabilities[i];
+	 // std::cout << probabilities[i] << std::endl;
 	}
 	return choice;
 }
