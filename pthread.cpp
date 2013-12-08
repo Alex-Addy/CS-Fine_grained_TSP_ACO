@@ -72,6 +72,7 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 	Pher= pheromones;
 	Distance = dist;
 	std::vector<pthread_t> cur;
+	std::vector<int> best;
 
 	for(int i = 0; i < GENERATIONS; i++)
 	{
@@ -110,14 +111,31 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 			int temp= results[minIndex].back();
 			results[minIndex].pop_back();
 			Pher[results[minIndex].back()][temp] = eq4(Pher[results[minIndex].back()][temp],wholeCost[minIndex]);
+			//std::cout << "best val: " << minVal << std::endl;
+			best.push_back(minVal);
 		}
-
-
-
-		for(int i =0; i < cur.size();i++)
-			cur[i] = 0;
+		
+		cur.clear();
+		//for(int i =0; i < cur.size();i++)
+		//	cur[i] = 0;
 
 	}
+	
+	int mini = INT_MAX;
+	int miniIndex =0;
+
+	for(int i=0; i< best.size();i++)
+	{
+	    if(best[i] < mini)
+	    {
+		miniIndex =i;
+		mini = best[i];
+	    }
+	}
+	
+	return mini;
+	
+	
 	// start all needed threads
 	// for each iteration
 	// for each ant : IN PARALLEL
@@ -149,7 +167,7 @@ void *does_work(void *ptr)
 		//res.clear();
 		//for(int i =0;i < problemSize; i++)
 		//{
-		//	res.push_back(0.0);
+		//	res.push_back(problemSize0.0);
 		//}
 
 		double choice = ((double) rand() / (RAND_MAX));
@@ -203,6 +221,7 @@ std::cout << "Selection, Val/Pos:" << max << "	" << maxIndex << std::endl;
 		std::cout << std::endl;
 		std::cout << "Find: " << temp << "/" << unvisited.size() << std::endl;
 		unvisited.erase(unvisited.begin() + temp);
+		std::cout << "Ant Current distance" << antDist << std::endl;
 	}
 
 std::cout << "end" << std::endl;
