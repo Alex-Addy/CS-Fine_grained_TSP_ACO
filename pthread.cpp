@@ -160,6 +160,7 @@ void *does_work(void *ptr)
 	//std::vector<double> res;
 	std::vector<int> history;
 	std::vector<int> unvisited = Locations;
+	bool flag = false;
 	//std::cout << unvisited.size()<< std::endl;
 	while(!unvisited.empty())
 	{
@@ -222,6 +223,11 @@ std::cout << "Selection, Val/Pos:" << max << "	" << maxIndex << std::endl;
 		std::cout << "Find: " << temp << "/" << unvisited.size() << std::endl;
 		unvisited.erase(unvisited.begin() + temp);
 		std::cout << "Ant Current distance" << antDist << std::endl;
+		if(unvisited.empty() && !flag)
+		{
+		    flag = true;
+		    unvisited.push_back(0);
+		}
 	}
 
 std::cout << "end" << std::endl;
