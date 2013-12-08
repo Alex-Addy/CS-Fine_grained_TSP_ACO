@@ -166,25 +166,21 @@ void *does_work(void *ptr)
 		if(choice > Q0)
 		{
 			// expliait
-		std::cout << "inDaIf" << std::endl;
-			for(int i =0; i< problemSize; i++)
+		std::cout << "We X-polit" << std::endl;
+			for(int i =0; i< unvisited.size(); i++)
 			{
-				if(i == pos) continue;
-				if(std::find(history.begin(), history.end(), i) != history.end()) 
-					continue;
-
-				double temp = Pher[pos][i] / pow(Distance[pos][i], BETA) ;
-				std::cout << "part is: " << temp << std::endl;
+				double temp = Pher[pos][ unvisited[i] ] / pow(Distance[pos][ unvisited[i] ], BETA);
+				//std::cout << "part is: " << temp << std::endl;
 				if( temp > max)
 				{
 					max =temp;
-					maxIndex = i;
+					maxIndex = unvisited[i];
 				}
 			}
 		}
 		else //we expolore
 		{
-std::cout << "theElse" << std::endl;
+std::cout << "We Explore" << std::endl;
 
 //std::cout << Pher.size() << "	" << Distance.size() << "	" << unvisited.size() << "	" << pos << std::endl;
 			std::vector<double> cho = eq2(Distance, Pher, unvisited, pos);
@@ -196,7 +192,7 @@ std::cout << "theElse" << std::endl;
 			 //std::cout << "test" << std::endl;
 			max = Pher[pos][maxIndex] / pow(Distance[pos][maxIndex], BETA);
 		}
-std::cout << "middle	" << max << "	" << maxIndex << std::endl;
+std::cout << "Selection, Val/Pos:" << max << "	" << maxIndex << std::endl;
 		Pher[pos][maxIndex] = eq3(Pher[pos][maxIndex],problemSize);
 		antDist += Distance[pos][maxIndex];
 		pos = maxIndex;
