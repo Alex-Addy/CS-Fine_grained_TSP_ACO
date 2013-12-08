@@ -6,7 +6,7 @@
 #include <fstream>
 #include <utility>
 
-const double Q0 = 0.3;  //if > then, exploration
+const double Q0 = 0.6;  //if > then, exploration
 const double BETA = 0.5; // must be in range [0,1], a lower q favors exploration over exploitation
 const double ALPHA = 0.2; // must be in range [0,1], pheremone decay factor
 const double TAU = 0.3;

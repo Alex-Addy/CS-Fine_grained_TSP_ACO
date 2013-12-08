@@ -156,7 +156,7 @@ void *does_work(void *ptr)
 
 		double choice2 = ((double) rand() / (RAND_MAX));
 
-		double max = 0;
+		double max = 0.0;
 		int maxIndex =0;
 
 		//std::cout << choice<< "   "  << choice2 << std::endl;
@@ -174,7 +174,7 @@ void *does_work(void *ptr)
 					continue;
 
 				double temp = Pher[pos][i] / pow(Distance[pos][i], BETA) ;
-
+				std::cout << "part is: " << temp << std::endl;
 				if( temp > max)
 				{
 					max =temp;
