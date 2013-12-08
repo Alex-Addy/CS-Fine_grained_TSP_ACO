@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cmath>
 #include <climits>
+#include <time.h>
 
 #include "utils.hpp"
 
@@ -19,6 +20,7 @@ std::vector<int> wholeCost;
 std::vector< std::vector<int> > Distance;
 std::vector<std::vector<double> > Pher;
 std::vector<int> Locations;
+std::vector<std::vector<double> > Randoms;
 
 int main(int argc, char** argv)
 {
@@ -37,7 +39,7 @@ int main(int argc, char** argv)
 
 	std::vector< std::vector<int> > dist = read_the_file(fileName);// returns a filled distance vector
 	std::vector<std::vector<double> > pheromones = setup_pheromones(dist); // returns a filled pheromone vector
-	
+
 	problemSize = dist.size();
 	for(int i =0; i < ANTCOUNT; i++)
 	{
@@ -45,17 +47,10 @@ int main(int argc, char** argv)
 		results.push_back(temp);
 		wholeCost.push_back(0);
 	}
-	
+
 	for(int i =1; i < dist.size(); i++)
 		Locations.push_back(i);
-	/*
-	for(int i =0; i< pheromones.size(); i++){
-	  for(int j=0; j < pheromones[i].size();j++)
-	      std::cout << pheromones[i][j] << "  ";
-	  std::cout << std::endl;
-	}
-	*/
-	
+
 	// start time
 	int answer = shortest_path_dist(dist, pheromones);
 	// end time
@@ -73,11 +68,18 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 	Distance = dist;
 	std::vector<pthread_t> cur;
 	std::vector<int> best;
-
+	srand(time(NULL));
 	for(int i = 0; i < GENERATIONS; i++)
 	{
+		for(int i =0; i < ANTCOUNT; i++)
+		{
+		  std::vector<double> temp;
+		  Randoms.push_back(temp);
+		  for(int j=0; j < (problemSize * 2) +1; j++)
+		    Randoms[i].push_back((double) rand() / (RAND_MAX));
+		}
+		    
 
-		
 		for(int i = 0;i < ANTCOUNT; i++)
 		{
 			int * ii = new int(i);
@@ -105,7 +107,6 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 			}
 		}
 
-		//int endi = results[minIndex][results[minIndex].size()-1];
 		for(int i =0; results[minIndex].size() > 1;i++)
 		{
 			int temp= results[minIndex].back();
@@ -114,42 +115,24 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 			//std::cout << "best val: " << minVal << std::endl;
 			best.push_back(minVal);
 		}
-		
-		cur.clear();
-		//for(int i =0; i < cur.size();i++)
-		//	cur[i] = 0;
 
+		cur.clear();
+		
 	}
-	
+
 	int mini = INT_MAX;
 	int miniIndex =0;
 
 	for(int i=0; i< best.size();i++)
 	{
-	    if(best[i] < mini)
-	    {
-		miniIndex =i;
-		mini = best[i];
-	    }
+		if(best[i] < mini)
+		{
+			miniIndex =i;
+			mini = best[i];
+		}
 	}
-	
+
 	return mini;
-	
-	
-	// start all needed threads
-	// for each iteration
-	// for each ant : IN PARALLEL
-	// initialize the ant
-	// share distance and pheromone graph for the thread
-	// while a tour is not finished
-	// choose the next city (eq 1,2)
-	// atomic: local pheromone update (eq 3) // after reading the paper (pg 3-4), it may be possible to drop this with minimal adverse affect, we will have to time with and without
-	// end while // end of ant's travel
-	// atomic: global pheromone update (eq 4)
-	// terminate the thread, release resources
-	//}
-	// barrier: all ants
-	//} // end of iteration
 }
 
 void *does_work(void *ptr)
@@ -157,35 +140,26 @@ void *does_work(void *ptr)
 	int pos = 0;
 	int antDist = 0;
 	int id = *((int *)ptr);
-	//std::vector<double> res;
 	std::vector<int> history;
 	std::vector<int> unvisited = Locations;
 	bool flag = false;
-	//std::cout << unvisited.size()<< std::endl;
+	int r=0; //what random we are on;
 	while(!unvisited.empty())
 	{
-	std::cout << pos << std::endl;
-		//res.clear();
-		//for(int i =0;i < problemSize; i++)
-		//{
-		//	res.push_back(problemSize0.0);
-		//}
+		std::cout << pos << std::endl;
 
-		double choice = ((double) rand() / (RAND_MAX));
+		double choice = Randoms[id][r++];
 
-		double choice2 = ((double) rand() / (RAND_MAX));
+		double choice2 = Randoms[id][r++];
 
 		double max = 0.0;
 		int maxIndex =0;
 
 		//std::cout << choice<< "   "  << choice2 << std::endl;
-		//std::cout << "Test" << id << std::endl;
-		//std::cout << Pher[0].size() <<std::endl;
-		//std::cout << choice << "   " << choice2 << "   testing Here" << std::endl;
 		if(choice > Q0)
 		{
 			// expliait
-		std::cout << "We X-polit" << std::endl;
+			std::cout << "We X-polit" << std::endl;
 			for(int i =0; i< unvisited.size(); i++)
 			{
 				double temp = Pher[pos][ unvisited[i] ] / pow(Distance[pos][ unvisited[i] ], BETA);
@@ -199,38 +173,33 @@ void *does_work(void *ptr)
 		}
 		else //we expolore
 		{
-std::cout << "We Explore" << std::endl;
+			std::cout << "We Explore" << std::endl;
 
-//std::cout << Pher.size() << "	" << Distance.size() << "	" << unvisited.size() << "	" << pos << std::endl;
 			std::vector<double> cho = eq2(Distance, Pher, unvisited, pos);
-			
-			//for(int i=0; i < unvisited.size();i++)
-			//  std::cout << eq2_helper(cho,choice2) << std::endl;
-			
+
 			maxIndex = eq2_helper(cho,choice2);
-			 //std::cout << "test" << std::endl;
 			max = Pher[pos][maxIndex] / pow(Distance[pos][maxIndex], BETA);
 		}
-std::cout << "Selection, Val/Pos:" << max << "	" << maxIndex << std::endl;
+		std::cout << "Selection, Val/Pos:" << max << "	" << maxIndex << std::endl;
 		Pher[pos][maxIndex] = eq3(Pher[pos][maxIndex],problemSize);
 		antDist += Distance[pos][maxIndex];
 		pos = maxIndex;
 		history.push_back(maxIndex);
 		int temp = std::find(unvisited.begin(),unvisited.end(),maxIndex) - unvisited.begin();
 		for(int i =0; i < unvisited.size();i++)
-		  std::cout << unvisited[i] << " ";
+			std::cout << unvisited[i] << " ";
 		std::cout << std::endl;
 		std::cout << "Find: " << temp << "/" << unvisited.size() << std::endl;
 		unvisited.erase(unvisited.begin() + temp);
 		std::cout << "Ant Current distance" << antDist << std::endl;
 		if(unvisited.empty() && !flag)
 		{
-		    flag = true;
-		    unvisited.push_back(0);
+			flag = true;
+			unvisited.push_back(0);
 		}
 	}
 
-std::cout << "end" << std::endl;
+	std::cout << "end" << std::endl;
 	results[id] = history;
 	wholeCost[id] = antDist;
 
