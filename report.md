@@ -71,6 +71,6 @@ Average error was calculated by finding the difference between each calculated b
 ####Conclusions:
 
 ###References:
-[0] ()
+[0] Ali Hadian, Saeed Shahrivari and Behrouz Minaei-bidgoli. Article: Fine-grained Parallel Ant Colony System for Shared-Memory Architectures. International Journal of Computer Applications 53(8):8-13, September 2012. Published by Foundation of Computer Science, New York, USA.
 
-[1] (http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/)
+[1] http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/
