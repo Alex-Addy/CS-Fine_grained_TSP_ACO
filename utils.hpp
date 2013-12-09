@@ -10,7 +10,7 @@ const double Q0 = 0.0245;  //if > then, exploration
 const double BETA = 0.765; // must be in range [0,1], a lower q favors exploration over exploitation
 const double ALPHA = 0.45; // must be in range [0,1], pheremone decay factor
 const double TAU = 0.3;
-const int GENERATIONS = 5000;  //how many times will we run this thingy
+const int GENERATIONS = 500;  //how many times will we run this thingy
 const int ANTCOUNT = 24;
 //const double PHERBASE = 0.5; //base level of pheromones
 
