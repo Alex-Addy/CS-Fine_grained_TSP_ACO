@@ -26,7 +26,7 @@ for the test cases we found a repository of travling salesman problem datasets a
 ####Results:
 
 #####Environment:
-These test cases were run on the linux side of the lab machines.
+These test cases were run on the linux side of the lab machines using Pthreads.
 The constants talked about in the paper have been set to: q<sub>0</sub> = 0.0245, &beta; = 0.765, &alpha; = 0.45, &tau; = 0.3. These were arrived at after various amounts of tweaking for the data sets, in an attempt to get closer to the correct value.
 
 For the data sets the number in the name refers to the number of cities in it. Also each graph is completely connected, so the number of connections is n<sup>2</sup>.
@@ -69,6 +69,12 @@ Average error was calculated by finding the difference between each calculated b
 </table>
 
 ####Conclusions:
+
+From the data gathered we can make no inferences about the efficiency of the implementation, or the speed gained by making it parallel.
+
+However there are a few things we can glean from the data. As this is a heuristic approach, it is not expected to arrive the best solution, but in order for it to be useful it should be within a reasonable amount of the best route. Usually this amount is expressed as a percentage. Ideally our solution would give an answer within 5% of the best answer, and it did for the 17 city data set. However it was just under 10% off in the 24 city case, and just above 10% for the 48 city case. This may be corrected by tweaking the constants, allowing for more iterations, changing the number of ants, or even a combination of all of them.
+
+The problem with this algorithm having so many constants is that changing them to get better answers for a particular data set can also make it give worse answers for the different data set. There is a difficult problem here which was not discussed at all in the paper we worked off of.
 
 ###References:
 [0] Ali Hadian, Saeed Shahrivari and Behrouz Minaei-bidgoli. Article: Fine-grained Parallel Ant Colony System for Shared-Memory Architectures. International Journal of Computer Applications 53(8):8-13, September 2012. Published by Foundation of Computer Science, New York, USA.
