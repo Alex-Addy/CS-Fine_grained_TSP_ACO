@@ -6,6 +6,7 @@
 #include <cmath>
 #include <climits>
 #include <time.h>
+#include <sys/time.h>
 
 #include "utils.hpp"
 
@@ -52,10 +53,13 @@ int main(int argc, char** argv)
 		Locations.push_back(i);
 
 	// start time
+	struct timeval start, end;
+	gettimeofday( &start, NULL );
 	int answer = shortest_path_dist(dist, pheromones);
+	gettimeofday( &end, NULL );
 	// end time
 
-	std::cout << answer << std::endl;
+	std::cout << "Took " << end.tv_sec - start.tv_sec << " seconds and " << (end.tv_usec > start.tv_usec ? end.tv_usec - start.tv_usec : start.tv_usec - end.tv_usec) << " microseconds to achieve a length of " << answer << std::endl;
 }
 
 // this algorithm has a structure similar to floyds
@@ -117,7 +121,7 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 		}
 
 		cur.clear();
-		std::cout << "Best of gen " << i << " is: " << minVal << std::endl;
+		std::cerr << "Best of gen " << i << " is: " << minVal << std::endl;
 	}
 
 	int mini = INT_MAX;
