@@ -23,6 +23,16 @@ The reference used for this implementation is reference [0]. We followed the cor
 ####Test Cases:
 for the test cases we found a repository of travling salesman problem datasets and the solutions to them at [1], we used the 'gr' cases from the symmetric TSP data set.
 
+####Results:
+
+#####Environment:
+These test cases were run on the linux side of the lab machines.
+The constants talked about in the paper have been set to: q<sub>0</sub> = 0.0245, &beta; = 0.765, &alpha; = 0.45, &tau; = 0.3. These were arrived at after various amounts of tweaking for the data sets, in an attempt to get closer to the correct value.
+
+For the following tests: there were 500 iterations, with the best path among all of them reported; and there were 24 'ants' or threads running.
+
+
+
 ###References:
 [0] ()
 
