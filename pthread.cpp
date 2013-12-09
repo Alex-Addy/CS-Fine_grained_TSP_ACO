@@ -159,7 +159,7 @@ void *does_work(void *ptr)
 		if(choice > Q0)
 		{
 			// expliait
-			std::cout << "We X-polit" << std::endl;
+			//std::cout << "We X-polit" << std::endl;
 			for(int i =0; i< unvisited.size(); i++)
 			{
 				double temp = Pher[pos][ unvisited[i] ] / pow(Distance[pos][ unvisited[i] ], BETA);
@@ -173,14 +173,14 @@ void *does_work(void *ptr)
 		}
 		else //we expolore
 		{
-			std::cout << "We Explore" << std::endl;
+			//std::cout << "We Explore" << std::endl;
 
 			std::vector<double> cho = eq2(Distance, Pher, unvisited, pos);
 
 			maxIndex = eq2_helper(cho,choice2);
 			max = Pher[pos][maxIndex] / pow(Distance[pos][maxIndex], BETA);
 		}
-		std::cout << "Selection, Val/Pos:" << max << "	" << maxIndex << std::endl;
+		//std::cout << "Selection, Val/Pos:" << max << "	" << maxIndex << std::endl;
 		Pher[pos][maxIndex] = eq3(Pher[pos][maxIndex],problemSize);
 		antDist += Distance[pos][maxIndex];
 		pos = maxIndex;
@@ -189,9 +189,9 @@ void *does_work(void *ptr)
 		for(int i =0; i < unvisited.size();i++)
 			std::cout << unvisited[i] << " ";
 		std::cout << std::endl;
-		std::cout << "Find: " << temp << "/" << unvisited.size() << std::endl;
+		//std::cout << "Find: " << temp << "/" << unvisited.size() << std::endl;
 		unvisited.erase(unvisited.begin() + temp);
-		std::cout << "Ant Current distance" << antDist << std::endl;
+		//std::cout << "Ant Current distance" << antDist << std::endl;
 		if(unvisited.empty() && !flag)
 		{
 			flag = true;
@@ -199,7 +199,7 @@ void *does_work(void *ptr)
 		}
 	}
 
-	std::cout << "end" << std::endl;
+	std::cout << "End Value: " << antDist << std::endl;
 	results[id] = history;
 	wholeCost[id] = antDist;
 
