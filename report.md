@@ -17,8 +17,13 @@ The application of techniques learned through the observance of ants to path fin
 ####Implementation:
 The original plan was to have an implementation in both Pthreads and OpenMP. However due to time contraints we were unable to complete both. As such we only have a pthreads implementation to go off of.
 
-For the pthreads implementation: Once we get the input from the files we create a thread pool. we generate a bunch of random number(float) between 0 and 1 for each thread to determine weather they will explore of stay on the most traveled path. then we traverse the graph at each node we use the random number to see if we should either following the path of a past ant or go off exploring. once all of the ants of that generation finish we update the pheromones graph and do it all over till we find the path closest to the best path.
+The reference used for this implementation is reference [0]. We followed the core of the algorithm psuedocode as well as using the four equations described in the paper.
 
 
 ####Test Cases:
-for the test cases we found a repository of travling salesman problem datasets and the solutions to them at:http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/
+for the test cases we found a repository of travling salesman problem datasets and the solutions to them at [1], we used the 'gr' cases from the symmetric TSP data set.
+
+###References:
+[0] ()
+
+[1] (http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/)
