@@ -117,7 +117,7 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 		}
 
 		cur.clear();
-		
+		std::cout << "Best of gen " << i << " is: " << minVal < std::endl;
 	}
 
 	int mini = INT_MAX;
@@ -186,9 +186,9 @@ void *does_work(void *ptr)
 		pos = maxIndex;
 		history.push_back(maxIndex);
 		int temp = std::find(unvisited.begin(),unvisited.end(),maxIndex) - unvisited.begin();
-		for(int i =0; i < unvisited.size();i++)
-			std::cout << unvisited[i] << " ";
-		std::cout << std::endl;
+		//for(int i =0; i < unvisited.size();i++)
+		//	std::cout << unvisited[i] << " ";
+		//std::cout << std::endl;
 		//std::cout << "Find: " << temp << "/" << unvisited.size() << std::endl;
 		unvisited.erase(unvisited.begin() + temp);
 		//std::cout << "Ant Current distance" << antDist << std::endl;

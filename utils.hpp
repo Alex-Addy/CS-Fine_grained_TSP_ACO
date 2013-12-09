@@ -7,10 +7,10 @@
 #include <utility>
 
 const double Q0 = 0.6;  //if > then, exploration
-const double BETA = 0.5; // must be in range [0,1], a lower q favors exploration over exploitation
+const double BETA = 0.4; // must be in range [0,1], a lower q favors exploration over exploitation
 const double ALPHA = 0.2; // must be in range [0,1], pheremone decay factor
 const double TAU = 0.3;
-const int GENERATIONS = 100;  //how many times will we run this thingy
+const int GENERATIONS = 1;  //how many times will we run this thingy
 const int ANTCOUNT = 1;
 //const double PHERBASE = 0.5; //base level of pheromones
 
