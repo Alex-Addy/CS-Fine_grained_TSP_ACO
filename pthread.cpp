@@ -199,7 +199,7 @@ void *does_work(void *ptr)
 		}
 	}
 
-	std::cout << "End Value: " << antDist << std::endl;
+	//std::cout << "End Value: " << antDist << std::endl;
 	results[id] = history;
 	wholeCost[id] = antDist;
 
