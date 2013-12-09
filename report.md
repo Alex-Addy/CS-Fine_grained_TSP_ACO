@@ -18,7 +18,7 @@ In this project we have implemented a fine-grained version of ACO for TSP.
 There are two implementations: pthreads and openmp.
 
 ####Implementation:
-For the project we used Pthreads and Openmp to implement the travling salsman problem with ant colony optimization. 
+For the project we used Pthreads. once we get the imput from the files we create a thread pool. we generate a bunch of random number(float) between 0 and 1 for each thread to determine weather they will explore of stay on the most traveled path. then we traverse the graph at each node we use the random number to see if we should eather following the path of a past ant or go off exploring. once all of the ants of that generation finish we update the pheromones graph and do it all over till we find the path closest to the best path. 
 
 
 
