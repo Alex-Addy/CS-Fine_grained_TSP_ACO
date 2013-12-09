@@ -146,7 +146,7 @@ void *does_work(void *ptr)
 	int r=0; //what random we are on;
 	while(!unvisited.empty())
 	{
-		std::cout << pos << std::endl;
+		//std::cout << pos << std::endl;
 
 		double choice = Randoms[id][r++];
 
