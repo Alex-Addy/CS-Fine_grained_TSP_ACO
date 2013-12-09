@@ -117,7 +117,7 @@ int shortest_path_dist(std::vector< std::vector<int> > dist, std::vector< std::v
 		}
 
 		cur.clear();
-		std::cout << "Best of gen " << i << " is: " << minVal < std::endl;
+		std::cout << "Best of gen " << i << " is: " << minVal << std::endl;
 	}
 
 	int mini = INT_MAX;
