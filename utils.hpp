@@ -6,11 +6,11 @@
 #include <fstream>
 #include <utility>
 
-const double Q0 = 0.3;  //if > then, exploration
-const double BETA = 0.5; // must be in range [0,1], a lower q favors exploration over exploitation
-const double ALPHA = 0.5; // must be in range [0,1], pheremone decay factor
-const double TAU = 0.2;
-const int GENERATIONS = 1000;  //how many times will we run this thingy
+const double Q0 = 0.0085;  //if > then, exploration
+const double BETA = 0.765; // must be in range [0,1], a lower q favors exploration over exploitation
+const double ALPHA = 0.45; // must be in range [0,1], pheremone decay factor
+const double TAU = 0.25;
+const int GENERATIONS = 5000;  //how many times will we run this thingy
 const int ANTCOUNT = 23;
 //const double PHERBASE = 0.5; //base level of pheromones
 
