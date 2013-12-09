@@ -29,6 +29,8 @@ for the test cases we found a repository of travling salesman problem datasets a
 These test cases were run on the linux side of the lab machines.
 The constants talked about in the paper have been set to: q<sub>0</sub> = 0.0245, &beta; = 0.765, &alpha; = 0.45, &tau; = 0.3. These were arrived at after various amounts of tweaking for the data sets, in an attempt to get closer to the correct value.
 
+For the data sets the number in the name refers to the number of cities in it. Also each graph is completely connected, so the number of connections is n<sup>2</sup>.
+
 For the following tests: there were 500 iterations, with the best path among all of them reported; and there were 24 'ants' or threads running.
 
 #####Run results:
@@ -56,6 +58,17 @@ Time format (secs, &mu;secs), then best path found for each test file.
 <tr><td>0, 277964</td><td>2168</td><td>1, 694110</td><td>1378</td><td>0, 586828</td><td>5309</td></tr>
 <tr><td>0, 279599</td><td>2158</td><td>0, 317370</td><td>1374</td><td>1, 406923</td><td>5632</td></tr>
 </table>
+
+Average error was calculated by finding the difference between each calculated best path and the actual best path, then dividing by the number of measurements.
+
+<table>
+<tr><th>Problem</th><th>Mean run time (&mu;secs)</th><th>Mean best path</th><th>Actual best path</th><th>Avg Err</th></tr>
+<tr><td>gr17</td><td>638247.9  </td><td>2173.65</td><td>2085</td><td>88.65 </td></tr>
+<tr><td>gr24</td><td>795885.85 </td><td>1384.6 </td><td>1272</td><td>112.6 </td></tr>
+<tr><td>gr48</td><td>1081656.15</td><td>5621.45</td><td>5046</td><td>575.45</td></tr>
+</table>
+
+####Conclusions:
 
 ###References:
 [0] ()
