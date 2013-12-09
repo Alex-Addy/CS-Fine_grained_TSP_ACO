@@ -1,5 +1,5 @@
 ### Fine-grained Parallel Ant Colony Optimization for the Traveling Salesman Problem
-#### Authors: Alexander Addy, Brad Santoro, Walter Wolfe
+#### Authors: Alexander Addy (ala47), Brad Santoro (bas106), Walter Wolfe (wrw4)
 
 ### Abstract
 
